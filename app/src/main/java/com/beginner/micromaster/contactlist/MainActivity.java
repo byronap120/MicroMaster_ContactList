@@ -34,7 +34,10 @@ public class MainActivity extends AppCompatActivity {
                 String phoneNumber = phoneNumberEditText.getText().toString();
 
                 //Get values from EditText and create a new Contact
-                createNewContact(name, lastName, email, Integer.parseInt(phoneNumber));
+                Integer phoneNumberInt = parsePhoneNumber(phoneNumber);
+                if (phoneNumberInt != null) {
+                    createNewContact(name, lastName, email, phoneNumberInt);
+                }
             }
         });
     }
@@ -49,5 +52,13 @@ public class MainActivity extends AppCompatActivity {
         lastNameEditText.setText("");
         emailEditText.setText("");
         phoneNumberEditText.setText("");
+    }
+
+    public static Integer parsePhoneNumber(String phoneNumber) {
+        try {
+            return Integer.parseInt(phoneNumber);
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 }
