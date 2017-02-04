@@ -2,14 +2,12 @@ package com.beginner.micromaster.contactlist;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
     private EditText nameEditText;
     private EditText lastNameEditText;
     private EditText emailEditText;
@@ -20,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Get EditText references
         nameEditText = (EditText) findViewById(R.id.input_name);
         lastNameEditText = (EditText) findViewById(R.id.input_lastName);
         emailEditText = (EditText) findViewById(R.id.input_email);
@@ -34,17 +33,14 @@ public class MainActivity extends AppCompatActivity {
                 String email = emailEditText.getText().toString();
                 String phoneNumber = phoneNumberEditText.getText().toString();
 
-                Integer phoneNumberInt = parsePhoneNumber(phoneNumber);
-                if (phoneNumberInt != null) {
-                    createNewContact(name, lastName, email, phoneNumberInt);
-                }
+                //Get values from EditText and create a new Contact
+                createNewContact(name, lastName, email, Integer.parseInt(phoneNumber));
             }
         });
     }
 
-    private void createNewContact(String name, String lastName, String email, int phoneNumber) {
+    private void createNewContact(String name, String lastName, String email, Integer phoneNumber) {
         Contact contact = new Contact(name, lastName, email, phoneNumber);
-        Log.d(TAG, "New contact created: " + contact.toString());
         clearEditText();
     }
 
@@ -53,13 +49,5 @@ public class MainActivity extends AppCompatActivity {
         lastNameEditText.setText("");
         emailEditText.setText("");
         phoneNumberEditText.setText("");
-    }
-
-    public static Integer parsePhoneNumber(String text) {
-        try {
-            return Integer.parseInt(text);
-        } catch (NumberFormatException e) {
-            return null;
-        }
     }
 }
