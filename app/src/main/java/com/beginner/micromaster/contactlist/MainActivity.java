@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
             public void onClick(View v) {
                 String name = nameEditText.getText().toString();
-                String lastName = nameEditText.getText().toString();
+                String lastName = lastNameEditText.getText().toString();
                 String email = emailEditText.getText().toString();
                 String phoneNumber = phoneNumberEditText.getText().toString();
 
