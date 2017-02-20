@@ -37,7 +37,10 @@ public class AddNewContactActivity extends AppCompatActivity {
                 String email = emailEditText.getText().toString();
                 String phoneNumber = phoneNumberEditText.getText().toString();
 
-                createNewContact(name, lastName, email, Integer.parseInt(phoneNumber));
+                Integer phoneNumberInt = parsePhoneNumber(phoneNumber);
+                if (phoneNumberInt != null) {
+                    createNewContact(name, lastName, email, phoneNumberInt);
+                }
 
             }
         });
