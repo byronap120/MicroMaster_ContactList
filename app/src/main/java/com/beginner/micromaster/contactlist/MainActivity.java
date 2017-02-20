@@ -1,65 +1,51 @@
 package com.beginner.micromaster.contactlist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ListView;
+
+import com.beginner.micromaster.contactlist.adapters.ContactListAdapter;
+import com.beginner.micromaster.contactlist.models.Contact;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
-    private EditText nameEditText;
-    private EditText lastNameEditText;
-    private EditText emailEditText;
-    private EditText phoneNumberEditText;
+    private ContactListAdapter adapter;
+    private ArrayList<Contact> arrayOfUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Get EditText references
-        nameEditText = (EditText) findViewById(R.id.input_name);
-        lastNameEditText = (EditText) findViewById(R.id.input_lastName);
-        emailEditText = (EditText) findViewById(R.id.input_email);
-        phoneNumberEditText = (EditText) findViewById(R.id.input_phoneNumber);
+        arrayOfUsers = getContactsFromDB();
+        adapter = new ContactListAdapter(this, arrayOfUsers);
 
-        Button button = (Button) findViewById(R.id.button_create_contact);
+        ListView listView = (ListView) findViewById(R.id.contact_list_view);
+        listView.setAdapter(adapter);
+
+        final Button button = (Button) findViewById(R.id.add_new_contact);
         button.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View v) {
-                String name = nameEditText.getText().toString();
-                String lastName = lastNameEditText.getText().toString();
-                String email = emailEditText.getText().toString();
-                String phoneNumber = phoneNumberEditText.getText().toString();
-
-                createNewContact(name, lastName, email, Integer.parseInt(phoneNumber));
-
+                Intent downloadIntent = new Intent(getApplicationContext(), AddNewContactActivity.class);
+                startActivity(downloadIntent);
             }
         });
     }
 
-    private void createNewContact(String name, String lastName, String email, Integer phoneNumber) {
-        Contact contact = new Contact(name, lastName, email, phoneNumber);
-        Log.d(TAG, "New contact created: " + contact.toString());
-        clearEditText();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        arrayOfUsers = getContactsFromDB();
+        adapter.notifyDataSetChanged();
     }
 
-    private void clearEditText() {
-        nameEditText.setText("");
-        lastNameEditText.setText("");
-        emailEditText.setText("");
-        phoneNumberEditText.setText("");
+    private ArrayList<Contact> getContactsFromDB() {
+        return new ArrayList<>(Contact.getAll());
     }
 
-    //TODO: use this method to verify that a String is parsable to Integer
-    public static Integer parsePhoneNumber(String phoneNumber) {
-        try {
-            return Integer.parseInt(phoneNumber);
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
 }
