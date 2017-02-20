@@ -35,11 +35,8 @@ public class MainActivity extends AppCompatActivity {
                 String email = emailEditText.getText().toString();
                 String phoneNumber = phoneNumberEditText.getText().toString();
 
-                //Get values from EditText and create a new Contact
-                Integer phoneNumberInt = parsePhoneNumber(phoneNumber);
-                if (phoneNumberInt != null) {
-                    createNewContact(name, lastName, email, phoneNumberInt);
-                }
+                createNewContact(name, lastName, email, Integer.parseInt(phoneNumber));
+
             }
         });
     }
@@ -57,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         phoneNumberEditText.setText("");
     }
 
+    //TODO: use this method to verify that a String is parsable to Integer
     public static Integer parsePhoneNumber(String phoneNumber) {
         try {
             return Integer.parseInt(phoneNumber);
