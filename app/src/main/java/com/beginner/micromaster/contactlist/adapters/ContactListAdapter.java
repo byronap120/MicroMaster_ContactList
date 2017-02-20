@@ -31,9 +31,15 @@ public class ContactListAdapter extends ArrayAdapter<Contact> {
         //get reference to object on list
         Contact contact = getItem(position);
 
-        //TODO: Add the rest of references and add the respective values for contact
         TextView contactName = (TextView) convertView.findViewById(R.id.contact_name);
+        TextView contactLastName = (TextView) convertView.findViewById(R.id.contact_last_name);
+        TextView contactEmail = (TextView) convertView.findViewById(R.id.textViewEmail);
+        TextView contactPhoneNumber = (TextView) convertView.findViewById(R.id.textViewPhoneNumber);
+
         contactName.setText(contact.getName());
+        contactLastName.setText(contact.getLastName());
+        contactEmail.setText(contact.getEmail());
+        contactPhoneNumber.setText(contact.getPhoneNumber() + "");
 
         return convertView;
     }
