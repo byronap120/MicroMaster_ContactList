@@ -1,5 +1,6 @@
 package com.beginner.micromaster.contactlist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -48,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
         Contact contact = new Contact(name, lastName, email, phoneNumber);
         Log.d(TAG, "New contact created: " + contact.toString());
         clearEditText();
+
+        Intent intent = new Intent(this, DetailActivity.class);
+        //TODO: send the rest of contact parameters
+        intent.putExtra("name", name);
+        startActivity(intent);
     }
 
     private void clearEditText() {
