@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         clearEditText();
 
         Intent intent = new Intent(this, DetailActivity.class);
-        //TODO: send the rest of contact parameters
         intent.putExtra("name", name);
         intent.putExtra("lastName", lastName);
         intent.putExtra("email", email);

@@ -19,13 +19,11 @@ public class DetailActivity extends AppCompatActivity {
         Bundle b = new Bundle();
         b = getIntent().getExtras();
 
-        //TODO: get the rest of contact parameters
         String name = b.getString("name");
         String lastName = b.getString("lastName");
         String email = b.getString("email");
         int phoneNumber = b.getInt("phoneNumber");
 
-        //TODO: once you have all the values for a contact add them to the views
         contactName.setText(name);
         contactLastName.setText(lastName);
         contactEmail.setText(email);
